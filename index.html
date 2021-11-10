@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gradient</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Verdana;
+            color: white;
+            font-size: 3em;
+            /*width: 500px;*/
+            /*height: 500px;*/
+            background: linear-gradient(0deg, #5bf59d, #11bcfa) no-repeat;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .fa-mouse {
+            animation: fa-spin 1s alternate ease-in-out;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        @keyframes fa-spin {
+            0% {
+                transform: rotate(30deg);
+            }
+            25% {
+                transform: rotate(-30deg);
+            }
+            50% {
+                transform: rotate(30deg);
+            }
+            75% {
+                transform: rotate(-30deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script>
+        function angle(x, y) {
+            //vectr a A 0 0 B 100 0
+            let centerX = 250;
+            let centerY = 250;
+
+            let a = {
+                x: 0,
+                y: 250
+            };
+
+            let b = {
+                x: x - centerX,
+                y: y - centerY
+            };
+
+            a.len = Math.sqrt(a.x * a.x + a.y * a.y);
+            b.len = Math.sqrt(b.x * b.x + b.y * b.y);
+
+            return Math.acos(
+                (a.x * b.x + a.y * b.y) / (a.len * b.len)
+            );
+        }
+
+
+
+        $(document).mousemove(function(e) {
+            let angled = angle(e.pageX, e.pageY) * (180 / Math.PI);
+            let calculated = e.pageX > $(document).width() / 2 ? 90 + angled : angled;
+            $('body').css('background', `linear-gradient(${calculated}deg, #5bf59d, #11bcfa)`)
+        })
+    </script>
+</head>
+<body>
+<div>
+    <h1>Awesome gradient 😍</h1>
+    <p>Drag your mouse <i class="fas fa-mouse"></i></p>
+</div>
+
+</body>
+</html>
